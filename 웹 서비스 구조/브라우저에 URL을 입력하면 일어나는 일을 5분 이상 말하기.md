@@ -41,7 +41,7 @@ www : host name
 
 ### (3) ISP의 DNS서버에 도메인의 IP주소를 요청
 
-- **ISP (Internet Service Provider)** : 개인이나 기업체에게 인터넷 접속 서비스, 웹사이트 구축 및 웹호스팅 서비스 등을 제공하는 회사를 말한다. 대표적으로 한국에서는 [KT](https://namu.wiki/w/KT), [SK브로드밴드](https://namu.wiki/w/SK%EB%B8%8C%EB%A1%9C%EB%93%9C%EB%B0%B4%EB%93%9C), [LG U+](https://namu.wiki/w/LG%20U%2B) 등이 있다.
+- **ISP (Internet Service Provider)** : 개인이나 기업체에게 인터넷 접속 서비스, 웹사이트 구축 및 웹호스팅 서비스 등을 제공하는 회사를 말한다. 대표적으로 한국에서는 KT, SK브로드밴드, LG U+ 등이 있다.
 - 컴퓨터에 연결되어 있는 ISP에 DNS서버가 있고, 이 DNS서버에게 도메인의 IP주소를 요청하고 응답을 받음.
     
     EX) 이 컴퓨터가 연결되어있는 회사가 KT라면, KT의 DNS서버에 www.abc.com의 IP주소를 요청하고 DNS가 5.5.5.5라고 응답을 줌
