@@ -74,18 +74,18 @@ GC는 Heap 영역에서 참조되지 않는 객체를 제거하여 메모리를 
 
 ## 4. 살아남는 객체 관리 전략
 
-- Old Generation까지 이동하는 객체 수를 줄이는 것이 중요.
-- 불필요한 객체 생성을 피하고, 적절한 객체 생명주기 관리를 통해 GC 부담 완화.
+- Old Generation까지 이동하는 객체 수를 줄이는 것이 중요
+- 불필요한 객체 생성을 피하고, 적절한 객체 생명주기 관리를 통해 GC 부담 완화
 
 ## 결론
 
 - JVM 메모리 관리는 성능 최적화와 안정적인 애플리케이션 운영에 핵심적인 요소이다.
-- 특히, GC로 인한 성능 문제나 장애 발생 시에는 Heap Dump 분석 역량이 필요하다.
+- 특히, GC로 인한 성능 문제나 장애 발생 시에는 Heap Dump 분석 역량이 필요할 수도 있다.
 - 적절한 JVM 옵션 설정과 코드 최적화를 통해 효율적인 메모리 사용을 유지해야 한다.
 
 ## References
 
-- https://mirinae312.github.io/develop/2018/06/04/jvm_memory.html
-- [JVM GC 에 대한 이해](https://hyungjoon6876.github.io/jlog/2018/07/07/how-jvm-works.html)
+- [image1 - JVM Memory](https://mirinae312.github.io/develop/2018/06/04/jvm_memory.html)
+- [image 2 - JVM GC 에 대한 이해](https://hyungjoon6876.github.io/jlog/2018/07/07/how-jvm-works.html)
 - [Guide to Garbage Collector Roots](https://www.baeldung.com/java-gc-roots)
 - [JNI (JAVA Native Interface)](https://velog.io/@vrooming13/JNI-JAVA-Native-Interface)
