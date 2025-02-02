@@ -8,22 +8,15 @@ JVM의 Heap 영역은 애플리케이션 실행 중 동적으로 생성되는 �
 
 ### 주요 개념
 
-- Heap 구조
+- **Heap 구조**
     - **Eden 영역**: 객체가 처음 생성되는 공간
     - **Survivor 영역**: Eden에서 살아남은 객체들이 이동하며, Survivor 1과 Survivor 2를 번갈아 사용
-    - **Old Generation**: Survivor 영역에서 오래 살아남은 객체가 이동. 이 영역의 메모리 소모량이 많아지면 Full GC가 발생
-- Garbage Collection(GC)
-    - **Minor GC**: Eden 및 Survivor 영역을 대상으로 수행. 보통 1초 이내 완료
-    - **Major(Full) GC**: Old Generation을 포함한 전체 Heap을 대상으로 수행. 수초 이상 소요될 수 있으며, 애플리케이션 지연(stop-the-world)을 유발
-
-### 장애 상황
-
-- Full GC 또는 Out of Memory(OOM) 발생 시 JVM 자체가 다운될 수 있음
-- Old Generation에 객체가 과도하게 쌓이면 Full GC 빈도가 증가하여 성능 저하 가능
+    - **Old Generation**: Survivor 영역에서 오래 살아남은 객체가 이동. 이 영역의 메모리 소모량이 많아지면 Full GC 빈도가 증가하여 성능 저하 가능
 
 ### 실무 팁
 
-- Old Generation까지 살아남는 객체를 최소화하도록 설계
+- **Old Generation**까지 살아남는 객체를 최소화하도록 설계
+- 불필요한 객체 생성을 피하고, 적절한 객체 생명주기 관리를 통해 GC 부담 완화
 
 ## 2. Java 8 이후의 Metaspace
 ![image](https://github.com/user-attachments/assets/fd855457-feb2-4f32-9dca-b61e3b408d75)
@@ -37,13 +30,11 @@ Java 8부터 기존의 Permanent Generation이 제거되고 **Metaspace**라는 
     - 클래스 메타데이터(로드된 클래스, 메서드 등)를 저장
     - 새로운 객체가 생성될 때, 해당 객체의 메타정보(주소값 등)가 Metaspace에 저장됨
 - **위치**:
-    - Java Heap이 아닌 Native 메모리 영역에서 동작
-    - Native 메모리, 즉 CPU와 RAM 하드웨어 수준에서 직접 활용하여 성능 및 속도 최적화가 이루어진 것으로 추정됨
+    - Java Heap이 아닌 **Native 메모리** 영역에서 동작 (즉, CPU와 RAM 하드웨어 수준에서 직접 활용)
 
 ### 활용 사례
 
-- Spring 프레임워크에서 Reflection을 통해 `.class`를 동적으로 로드할 때 사용
-- TPS(Transaction Per Second)에 따라 메모리 소모량이 달라지므로 적절한 설정 필요
+- **Spring 프레임워크에서 Reflection을 통해 `.class`를 동적으로 로드할 때 사용**
 
 ## 3. JVM Garbage Collector (GC)
 
@@ -67,21 +58,18 @@ GC는 Heap 영역에서 참조되지 않는 객체를 제거하여 메모리를 
                 2. 네이티브 코드(C/C++)에서 Java 객체를 참조하거나 조작
                 3. 결과를 Java로 반환
 3. **GC 유형**
-    - Minor GC: Eden 및 Survivor 영역 대상, 빠르게 수행
-    - Major(Full) GC:
-        - Old Generation 포함 전체 Heap 대상, 느리고 stop-the-world 발생
-        - 수초 이상 진행되기도 하며, 이 지연으로 인해 **DB Connection이 끊기는 등의 운영 문제가 발생할 수 있음**
+    - **Minor GC**: Eden 및 Survivor 영역을 대상으로 수행, 보통 1초 이내 완료
+    - **Major(Full) GC**:
+        - Old Generation을 포함한 전체 Heap을 대상으로 수행
+        - 수초 이상 진행되기도 하며, 애플리케이션 지연(stop-the-world)을 유발할 수도 있는데 이 때 **DB Connection이 끊기는 등의 운영 문제가 발생할 수 있음**
 
-## 4. 살아남는 객체 관리 전략
-
-- Old Generation까지 이동하는 객체 수를 줄이는 것이 중요
-- 불필요한 객체 생성을 피하고, 적절한 객체 생명주기 관리를 통해 GC 부담 완화
 
 ## 결론
-
 - JVM 메모리 관리는 성능 최적화와 안정적인 애플리케이션 운영에 핵심적인 요소이다.
-- 특히, GC로 인한 성능 문제나 장애 발생 시에는 Heap Dump 분석 역량이 필요할 수도 있다.
-- 적절한 JVM 옵션 설정과 코드 최적화를 통해 효율적인 메모리 사용을 유지해야 한다.
+- Full GC 또는 Out of Memory(OOM) 발생 시 JVM 자체가 다운되는 장애 상황이 발생할 수 있다.
+- 이러한 GC로 인한 성능 문제나 장애 발생 시에는 JVM Heap을 Dump 떠서 분석해야 하는 상황이 필요할 수도 있다.
+- 따라서, 적절한 JVM 옵션 설정과 코드 최적화를 통해 효율적인 메모리 사용을 유지해야 한다.
+- **TPS가 증가하면 메모리 사용량이 증가할 가능성이 있으므로, JMeter나 APM 도구를 활용해 부하 테스트를 수행하고 메모리 사용량 변화를 관찰하는 것이 권장된다.**
 
 ## References
 
